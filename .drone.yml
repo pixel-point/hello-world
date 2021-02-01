@@ -13,7 +13,8 @@ steps:
   - name: build
     image: plugins/docker
     settings:
-      repo: foo/bar
+      repo: registry.pixelpoint.io/slack-http-request
+      registry: registry.pixelpoint.io
       tags: latest
       dry_run: true
       debug: true
