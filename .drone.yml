@@ -9,6 +9,7 @@ steps:
     commands:
     - echo hello
     - echo world
+    - exit 1
 
   - name: build
     image: plugins/docker
