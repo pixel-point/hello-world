@@ -21,3 +21,6 @@ steps:
     volumes:
     - name: temp
       path: /tmp
+trigger:
+  event:
+    - push
