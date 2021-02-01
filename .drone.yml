@@ -21,11 +21,3 @@ steps:
     volumes:
     - name: temp
       path: /tmp
-
-  - name: notify
-    image: plugins/slack
-    pull: if-not-exists
-    settings:
-      webhook:
-        from_secret: slack_webhook
-      channel: bradrydzewski
