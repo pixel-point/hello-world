@@ -9,19 +9,32 @@ steps:
     commands:
     - echo hello
     - echo world
-    - exit 1
 
-  - name: build
-    image: plugins/docker
+  - name: backend
+    image: golang
+    commands:
+    - go build
+    - go test
+    depends_on:
+      - hello
+
+  - name: frontend
+    image: node
+    commands:
+    - npm install
+    - npm test
+    depends_on:
+      - hello
+
+  - name: notify
+    image: plugins/slack
     settings:
-      repo: registry.pixelpoint.io/hello-world
-      registry: registry.pixelpoint.io
-      tags: latest
-      dry_run: true
-      debug: true
-    volumes:
-    - name: temp
-      path: /tmp
+      webhook:
+        from_secret: webhook
+    depends_on:
+      - frontend
+      - backend
+
 trigger:
   event:
     - push
