@@ -34,6 +34,43 @@ steps:
       - frontend
       - backend
 
+---
+kind: pipeline
+type: docker
+name: another
+
+steps:
+  - name: hello
+    image: alpine
+    pull: if-not-exists
+    commands:
+    - echo hello
+    - echo world
+
+  - name: backend
+    image: alpine
+    commands:
+    - echo backend
+    depends_on:
+      - hello
+
+  - name: frontend
+    image: node
+    commands:
+    - npm install
+    - echo frontend
+    depends_on:
+      - hello
+
+  - name: notify
+    image: alpine
+    commands:
+    - echo hello frontend backend passed
+    depends_on:
+      - hello
+      - frontend
+      - backend
+
 trigger:
   event:
     - push
