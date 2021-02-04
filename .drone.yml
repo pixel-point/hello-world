@@ -37,6 +37,21 @@ steps:
 ---
 kind: pipeline
 type: docker
+name: other
+
+steps:
+  - name: first
+    image: alpine
+    pull: if-not-exists
+    commands:
+    - echo first passed
+    
+depends_on:
+  - default
+
+---
+kind: pipeline
+type: docker
 name: another
 
 steps:
@@ -70,6 +85,9 @@ steps:
       - hello
       - frontend
       - backend
+
+depends_on:
+  - default
 
 trigger:
   event:
