@@ -11,10 +11,9 @@ steps:
     - echo world
 
   - name: backend
-    image: golang
+    image: alpine
     commands:
-    - go build
-    - go test
+    - echo backend
     depends_on:
       - hello
 
@@ -22,7 +21,7 @@ steps:
     image: node
     commands:
     - npm install
-    - npm test
+    - echo frontend
     depends_on:
       - hello
 
@@ -32,6 +31,7 @@ steps:
       webhook:
         from_secret: webhook
     depends_on:
+      - hello
       - frontend
       - backend
 
