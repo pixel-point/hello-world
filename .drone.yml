@@ -3,48 +3,38 @@ type: docker
 name: default
 
 steps:
-  - name: hello
+  - name: shoutout
     image: alpine
     pull: if-not-exists
     commands:
-    - echo hello
-    - echo world
-
-  - name: backend
-    image: alpine
-    commands:
-    - echo backend
-    depends_on:
-      - hello
-
-  - name: frontend
-    image: node
-    commands:
-    - npm install
-    - echo frontend
-    depends_on:
-      - hello
-
-  - name: notify
-    image: alpine
-    commands:
-    - echo hello frontend backend passed
-    depends_on:
-      - hello
-      - frontend
-      - backend
+    - echo hey I belong to stage default
 
 ---
 kind: pipeline
 type: docker
-name: other
+name: stage A
 
 steps:
-  - name: first
+  - name: shoutout
     image: alpine
     pull: if-not-exists
     commands:
-    - echo first passed
+    - echo hey I belong to stage A
+    
+depends_on:
+  - default
+  
+---
+kind: pipeline
+type: docker
+name: stage B
+
+steps:
+  - name: shoutout
+    image: alpine
+    pull: if-not-exists
+    commands:
+    - echo hey I belong to stage B
     
 depends_on:
   - default
@@ -52,42 +42,80 @@ depends_on:
 ---
 kind: pipeline
 type: docker
-name: another
+name: stage C
 
 steps:
-  - name: hello
+  - name: shoutout
     image: alpine
     pull: if-not-exists
     commands:
-    - echo hello
-    - echo world
-
-  - name: backend
-    image: alpine
-    commands:
-    - echo backend
-    depends_on:
-      - hello
-
-  - name: frontend
-    image: node
-    commands:
-    - npm install
-    - echo frontend
-    depends_on:
-      - hello
-
-  - name: notify
-    image: alpine
-    commands:
-    - echo hello frontend backend passed
-    depends_on:
-      - hello
-      - frontend
-      - backend
-
+    - echo hey I belong to stage C
+    
 depends_on:
   - default
+
+---
+kind: pipeline
+type: docker
+name: stage D
+
+steps:
+  - name: shoutout
+    image: alpine
+    pull: if-not-exists
+    commands:
+    - echo hey I belong to stage D
+    
+depends_on:
+  - stage A
+  - stage B
+
+---
+kind: pipeline
+type: docker
+name: stage E
+
+steps:
+  - name: shoutout
+    image: alpine
+    pull: if-not-exists
+    commands:
+    - echo hey I belong to stage E
+    
+depends_on:
+  - stage C
+  
+---
+kind: pipeline
+type: docker
+name: stage F
+
+steps:
+  - name: shoutout
+    image: alpine
+    pull: if-not-exists
+    commands:
+    - echo hey I belong to stage F
+    
+depends_on:
+  - stage A
+  - stage C
+
+---
+kind: pipeline
+type: docker
+name: stage G
+
+steps:
+  - name: shoutout
+    image: alpine
+    pull: if-not-exists
+    commands:
+    - echo hey I belong to stage G
+    
+depends_on:
+  - stage F
+  - stage E
 
 trigger:
   event:
