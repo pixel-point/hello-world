@@ -8,6 +8,7 @@ steps:
     pull: if-not-exists
     commands:
     - echo hey I belong to stage default
+    - exit 1
 
 ---
 kind: pipeline
