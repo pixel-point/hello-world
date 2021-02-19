@@ -121,6 +121,7 @@ steps:
     pull: if-not-exists
     commands:
     - echo hey I belong to stage F
+    - exit 1
     
 depends_on:
   - stage A
