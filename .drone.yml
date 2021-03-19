@@ -9,45 +9,6 @@ steps:
     commands:
     - echo hey I belong to stage default
 
----
-kind: pipeline
-type: docker
-name: default-beta
-
-steps:
-  - name: shoutout
-    image: alpine
-    pull: if-not-exists
-    commands:
-    - echo hey I belong to stage default-beta
-
----
-kind: pipeline
-type: docker
-name: default-gamma
-
-steps:
-  - name: shoutout
-    image: alpine
-    pull: if-not-exists
-    commands:
-    - echo hey I belong to stage default-gamma
-
----
-kind: pipeline
-type: docker
-name: stage A
-
-steps:
-  - name: shoutout
-    image: alpine
-    pull: if-not-exists
-    commands:
-    - echo hey I belong to stage A
-    
-depends_on:
-  - default
-
 trigger:
   event:
     - push
