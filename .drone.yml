@@ -3,11 +3,43 @@ type: docker
 name: default
 
 steps:
-  - name: shoutout-a
+  - name: shoutout
     image: alpine
     pull: if-not-exists
     commands:
     - echo hey I belong to stage default
+
+trigger:
+  event:
+    - push
+
+---
+kind: pipeline
+type: docker
+name: default-beta
+
+steps:
+  - name: shoutout
+    image: alpine
+    pull: if-not-exists
+    commands:
+    - echo hey I belong to stage default-beta
+    
+trigger:
+  event:
+    - push
+
+---
+kind: pipeline
+type: docker
+name: default-gamma
+
+steps:
+  - name: shoutout
+    image: alpine
+    pull: if-not-exists
+    commands:
+    - echo hey I belong to stage default-gamma
 
 trigger:
   event:
