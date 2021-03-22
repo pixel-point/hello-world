@@ -41,6 +41,9 @@ steps:
     commands:
     - echo hey I belong to stage default-gamma
 
+depends_on: 
+  - default
+
 trigger:
   event:
     - push
