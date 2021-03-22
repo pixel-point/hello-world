@@ -3,7 +3,7 @@ type: docker
 name: default
 
 steps:
-  - name: shoutout
+  - name: shoutout-alfa
     image: alpine
     pull: if-not-exists
     commands:
