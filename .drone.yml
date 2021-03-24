@@ -1,3 +1,5 @@
+intentional build error
+
 kind: pipeline
 type: docker
 name: default
